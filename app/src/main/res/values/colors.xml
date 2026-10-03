@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- SoulSnap Design System Colors -->
+    <color name="bg_cream">#FBF8F3</color>
+    <color name="surface_white">#FFFFFF</color>
+    <color name="surface_card">#FFFFFF</color>
+    
+    <!-- Primary Soft Purple -->
+    <color name="primary_purple">#7854C4</color>
+    <color name="primary_purple_dark">#58399E</color>
+    <color name="primary_purple_light">#EFE8FC</color>
+    <color name="primary_purple_ripple">#227854C4</color>
+
+    <!-- Secondary Peach / Coral -->
+    <color name="secondary_coral">#FF7052</color>
+    <color name="secondary_coral_light">#FFEBE6</color>
+    
+    <!-- Accent Sage Green -->
+    <color name="accent_sage">#6E9B66</color>
+    <color name="accent_sage_light">#EBF3E8</color>
+    
+    <!-- Heart Pink / Red -->
+    <color name="heart_pink">#FF3B66</color>
+    <color name="heart_pink_light">#FFE8ED</color>
+    
+    <!-- Typography & Neutrals -->
+    <color name="text_charcoal">#272733</color>
+    <color name="text_muted">#686677</color>
+    <color name="text_hint">#9E9CAE</color>
+    <color name="divider_soft">#EBE5DC</color>
+    
+    <!-- Status / Alerts -->
+    <color name="status_error">#E04040</color>
+    <color name="status_error_bg">#FDECEC</color>
+    <color name="status_success">#2E8B57</color>
+    
+    <!-- Emotion specific badge colors -->
+    <color name="emotion_happy_bg">#FFF3D6</color>
+    <color name="emotion_happy_text">#B87503</color>
+    <color name="emotion_sad_bg">#E3EEFF</color>
+    <color name="emotion_sad_text">#2B66C4</color>
+    <color name="emotion_angry_bg">#FFE5E5</color>
+    <color name="emotion_angry_text">#D32F2F</color>
+    <color name="emotion_cry_bg">#E0F2FE</color>
+    <color name="emotion_cry_text">#0284C7</color>
+    <color name="emotion_fear_bg">#F3E8FF</color>
+    <color name="emotion_fear_text">#7E22CE</color>
+    <color name="emotion_surprise_bg">#FEF3C7</color>
+    <color name="emotion_surprise_text">#D97706</color>
+    
+    <!-- System Compatibility -->
+    <color name="black">#000000</color>
+    <color name="white">#FFFFFF</color>
+</resources>

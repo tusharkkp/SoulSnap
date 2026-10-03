@@ -1,0 +1,549 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_cream">
+
+    <!-- Top App Bar -->
+    <LinearLayout
+        android:id="@+id/topBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingHorizontal="16dp"
+        android:paddingVertical="12dp"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageButton
+            android:id="@+id/btnBack"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Back"
+            android:src="@drawable/ic_back" />
+
+        <TextView
+            android:id="@+id/tvHeaderTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_weight="1"
+            android:fontFamily="sans-serif-medium"
+            android:text="@string/log_emotion_title"
+            android:textColor="@color/text_charcoal"
+            android:textSize="20sp" />
+
+        <ImageButton
+            android:id="@+id/btnSwitchCamera"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Flip Camera"
+            android:src="@drawable/ic_flip_camera"
+            app:tint="@color/text_charcoal" />
+    </LinearLayout>
+
+    <!-- Permission Request / Camera Unavailable Layout -->
+    <LinearLayout
+        android:id="@+id/layoutPermissionDenied"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="28dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/topBar">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="📸"
+            android:textSize="56sp" />
+
+        <TextView
+            android:id="@+id/tvPermissionTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:fontFamily="sans-serif-medium"
+            android:text="Camera Access"
+            android:textColor="@color/text_charcoal"
+            android:textSize="22sp" />
+
+        <TextView
+            android:id="@+id/tvPermissionDesc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="sans-serif"
+            android:gravity="center"
+            android:lineSpacingExtra="3dp"
+            android:text="SoulSnap uses your camera to capture your facial expression and recognize your emotion. You can also pick an existing photo."
+            android:textColor="@color/text_muted"
+            android:textSize="14sp" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnGrantPermission"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/shape_button_primary"
+            android:text="Enable Camera"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="15sp" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnChooseGalleryPermission"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/shape_button_secondary"
+            android:text="📁 Choose Photo from Gallery"
+            android:textAllCaps="false"
+            android:textColor="@color/secondary_coral"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+    <!-- Camera Viewfinder Layout (State 1) -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutCamera"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/topBar">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardPreview"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="16dp"
+            app:cardCornerRadius="24dp"
+            app:cardElevation="4dp"
+            app:layout_constraintBottom_toTopOf="@id/llCameraControls"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.camera.view.PreviewView
+                android:id="@+id/viewFinder"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <!-- Guide hint overlay -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|center_horizontal"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/shape_badge"
+                android:backgroundTint="#99000000"
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="8dp"
+                android:text="Align your face inside the frame"
+                android:textColor="@color/white"
+                android:textSize="13sp" />
+        </androidx.cardview.widget.CardView>
+
+        <!-- Bottom capture & gallery controls -->
+        <LinearLayout
+            android:id="@+id/llCameraControls"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingBottom="24dp"
+            android:paddingTop="8dp"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/btnChooseGallery"
+                    android:layout_width="52dp"
+                    android:layout_height="52dp"
+                    android:layout_marginEnd="24dp"
+                    android:background="@drawable/shape_badge"
+                    android:backgroundTint="@color/surface_white"
+                    android:contentDescription="Pick Photo from Gallery"
+                    android:elevation="3dp"
+                    android:src="@drawable/ic_gallery" />
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/btnCapture"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/take_photo"
+                    app:backgroundTint="@color/primary_purple"
+                    app:elevation="6dp"
+                    app:fabCustomSize="72dp"
+                    app:maxImageSize="36dp"
+                    app:srcCompat="@drawable/ic_camera"
+                    app:tint="@color/white" />
+
+                <!-- Placeholder for balance -->
+                <View
+                    android:layout_width="52dp"
+                    android:layout_height="52dp"
+                    android:layout_marginStart="24dp"
+                    android:visibility="invisible" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="sans-serif-medium"
+                android:text="Tap to capture or choose a photo"
+                android:textColor="@color/text_muted"
+                android:textSize="13sp" />
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- Review & Analysis Layout (State 2) -->
+    <ScrollView
+        android:id="@+id/layoutAnalysis"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/topBar">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <!-- Analyzing Progress Banner -->
+            <LinearLayout
+                android:id="@+id/llAnalyzing"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape_badge"
+                android:backgroundTint="@color/primary_purple_light"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="14dp"
+                android:visibility="gone">
+
+                <ProgressBar
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:indeterminateTint="@color/primary_purple" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="@string/analyzing_photo"
+                    android:textColor="@color/primary_purple"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <!-- Face Detection Error Banner (0 faces or >1 face) -->
+            <LinearLayout
+                android:id="@+id/llDetectionError"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape_badge"
+                android:backgroundTint="@color/status_error_bg"
+                android:orientation="vertical"
+                android:padding="16dp"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/tvErrorHeader"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="No face detected"
+                    android:textColor="@color/status_error"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/tvErrorDetail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:fontFamily="sans-serif"
+                    android:text="Please capture another photograph with your face clearly visible."
+                    android:textColor="@color/text_charcoal"
+                    android:textSize="14sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:orientation="horizontal">
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/btnRetakeError"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:background="@drawable/shape_button_secondary"
+                        android:paddingHorizontal="16dp"
+                        android:text="Retake Photo"
+                        android:textAllCaps="false"
+                        android:textColor="@color/secondary_coral"
+                        android:textSize="13sp" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/btnPickGalleryError"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:layout_marginStart="10dp"
+                        android:background="@drawable/shape_button_primary"
+                        android:paddingHorizontal="16dp"
+                        android:text="Choose from Gallery"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white"
+                        android:textSize="13sp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Image Previews Container -->
+            <LinearLayout
+                android:id="@+id/llImagePreviews"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <!-- Full Captured Photo -->
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="140dp"
+                    android:layout_height="140dp"
+                    app:cardCornerRadius="18dp"
+                    app:cardElevation="2dp"
+                    app:strokeColor="@color/divider_soft"
+                    app:strokeWidth="1dp">
+
+                    <ImageView
+                        android:id="@+id/ivCapturedPhoto"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:contentDescription="Captured Photograph"
+                        android:scaleType="centerCrop" />
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Cropped Face with Badge -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardCroppedFace"
+                    android:layout_width="140dp"
+                    android:layout_height="140dp"
+                    android:layout_marginStart="16dp"
+                    app:cardCornerRadius="18dp"
+                    app:cardElevation="2dp"
+                    app:strokeColor="@color/primary_purple_light"
+                    app:strokeWidth="2dp">
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:id="@+id/ivCroppedFace"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:contentDescription="Cropped Face"
+                            android:scaleType="centerCrop" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="bottom"
+                            android:background="#99000000"
+                            android:fontFamily="sans-serif-medium"
+                            android:gravity="center"
+                            android:paddingVertical="4dp"
+                            android:text="Detected Face"
+                            android:textColor="@color/white"
+                            android:textSize="11sp" />
+                    </FrameLayout>
+                </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
+
+            <!-- Detected Emotion Result Card -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardEmotionResult"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                app:cardBackgroundColor="@color/surface_white"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="3dp"
+                app:strokeColor="@color/primary_purple_light"
+                app:strokeWidth="1.5dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="20dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif"
+                        android:text="✨ SoulSnap detected"
+                        android:textColor="@color/primary_purple"
+                        android:textSize="14sp" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/tvEmotionEmoji"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="😊"
+                            android:textSize="40sp" />
+
+                        <TextView
+                            android:id="@+id/tvEmotionName"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:fontFamily="sans-serif-medium"
+                            android:text="HAPPY"
+                            android:textColor="@color/text_charcoal"
+                            android:textSize="26sp" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/tvEmotionConfidence"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/shape_badge"
+                        android:backgroundTint="@color/primary_purple_light"
+                        android:fontFamily="sans-serif-medium"
+                        android:text="91% confidence"
+                        android:textColor="@color/primary_purple"
+                        android:textSize="13sp" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Note & Timestamp Card -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardNoteInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:cardBackgroundColor="@color/surface_white"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="2dp"
+                app:strokeColor="@color/divider_soft"
+                app:strokeWidth="1dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="18dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-medium"
+                        android:text="How are you feeling?"
+                        android:textColor="@color/text_charcoal"
+                        android:textSize="14sp" />
+
+                    <EditText
+                        android:id="@+id/etNote"
+                        android:layout_width="match_parent"
+                        android:layout_height="100dp"
+                        android:layout_marginTop="8dp"
+                        android:background="@drawable/shape_edittext"
+                        android:gravity="top|start"
+                        android:hint="Today was such a peaceful day. I felt really calm."
+                        android:inputType="textMultiLine|textCapSentences"
+                        android:maxLength="200"
+                        android:padding="12dp"
+                        android:textColor="@color/text_charcoal"
+                        android:textColorHint="@color/text_hint"
+                        android:textSize="14sp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/tvTimestamp"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:fontFamily="sans-serif"
+                            android:text="Date: 03 Oct 2026  •  12:00 PM"
+                            android:textColor="@color/text_muted"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/tvCharCount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="sans-serif"
+                            android:text="0/200"
+                            android:textColor="@color/text_hint"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Save & Retake Action Buttons -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="24dp"
+                android:orientation="vertical">
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnSaveEmotion"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:background="@drawable/shape_button_primary"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="@string/save_emotion"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnRetakePhoto"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/shape_button_secondary"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="Retake Photo"
+                    android:textAllCaps="false"
+                    android:textColor="@color/secondary_coral"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

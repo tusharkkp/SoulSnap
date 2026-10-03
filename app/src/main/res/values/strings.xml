@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">SoulSnap</string>
+    <string name="brand_name">SoulSnap ❤️</string>
+    <string name="login_title">Welcome Back</string>
+    <string name="login_subtitle">Capture and cherish your emotional journey</string>
+    <string name="register_title">Join SoulSnap</string>
+    <string name="register_subtitle">Begin your mindful emotional journaling</string>
+    <string name="username_hint">Username</string>
+    <string name="email_hint">Email Address</string>
+    <string name="password_hint">Password</string>
+    <string name="confirm_password_hint">Confirm Password</string>
+    <string name="btn_login">Log In</string>
+    <string name="btn_register">Create Account</string>
+    <string name="no_account">Don\'t have an account? Sign up</string>
+    <string name="already_account">Already have an account? Log in</string>
+    <string name="log_emotion_title">Log Your Emotion</string>
+    <string name="log_emotion_desc">Capture a moment and write your thoughts</string>
+    <string name="my_emotions_title">My Emotions</string>
+    <string name="my_emotions_desc">Look back at your emotional journey</string>
+    <string name="logout">Log Out</string>
+    <string name="take_photo">Capture Photo</string>
+    <string name="analyzing_photo">Detecting face &amp; emotion…</string>
+    <string name="save_emotion">Save Emotion Record</string>
+    <string name="note_hint">How are you feeling? (Max 200 characters)</string>
+    <string name="empty_emotions_title">No emotions yet 💭</string>
+    <string name="empty_emotions_desc">Capture your first moment and start your SoulSnap journey.</string>
+</resources>

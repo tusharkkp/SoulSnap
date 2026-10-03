@@ -1,0 +1,6 @@
+{
+  "name": "SoulSnap",
+  "description": "Personal emotion journal with Google ML Kit face detection and pre-trained TensorFlow Lite facial emotion recognition.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

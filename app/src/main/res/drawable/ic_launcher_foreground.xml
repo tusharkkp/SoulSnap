@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- Camera Body -->
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M33,38h9l3.5,-5h17l3.5,5h9c3.3,0 6,2.7 6,6v27c0,3.3 -2.7,6 -6,6H33c-3.3,0 -6,-2.7 -6,-6V44c0,-3.3 2.7,-6 6,-6z" />
+    
+    <!-- Camera Lens Inner -->
+    <path
+        android:fillColor="#5A3A8A"
+        android:pathData="M54,45c7.7,0 14,6.3 14,14s-6.3,14 -14,14s-14,-6.3 -14,-14s6.3,-14 14,-14z" />
+    
+    <!-- Lens Reflection / Iris -->
+    <path
+        android:fillColor="#7B5EA7"
+        android:pathData="M54,48c6.1,0 11,4.9 11,11s-4.9,11 -11,11s-11,-4.9 -11,-11s4.9,-11 11,-11z" />
+        
+    <!-- Smile in lens -->
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M48,56a1.5,1.5 0,1 0,3 0a1.5,1.5 0,1 0,-3 0z" />
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M57,56a1.5,1.5 0,1 0,3 0a1.5,1.5 0,1 0,-3 0z" />
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M48,61c1.5,3 4.5,4.5 6,4.5s4.5,-1.5 6,-4.5c0.5,-0.6 0,-1.2 -0.6,-1.2c-0.4,0 -0.8,0.3 -1.1,0.7c-0.9,1.8 -2.7,2.8 -4.3,2.8s-3.4,-1 -4.3,-2.8c-0.3,-0.4 -0.7,-0.7 -1.1,-0.7c-0.6,0 -1.1,0.6 -0.6,1.2z" />
+
+    <!-- Cute Heart Accent (Top Right) -->
+    <path
+        android:fillColor="#FF7675"
+        android:pathData="M73,35c-1.8,-1.8 -4.7,-1.8 -6.5,0l-0.5,0.5l-0.5,-0.5c-1.8,-1.8 -4.7,-1.8 -6.5,0c-1.8,1.8 -1.8,4.7 0,6.5l7,7l7,-7c1.8,-1.8 1.8,-4.7 0,-6.5z" />
+</vector>
